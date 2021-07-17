@@ -1,0 +1,32 @@
+import java.util.*;
+
+class Solution {
+    public int[] intersect(int[] nums1, int[] nums2) {
+        LinkedList<Integer> list = new LinkedList<>();
+        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+        for(int i=0; i<nums2.length; i++) {
+            Integer result = map.get(nums2[i]);
+            if(result == null) {
+                map.put(nums2[i], 1);
+            } else {
+                map.put(nums2[i], ++result);
+            }
+        }
+        
+        for(int i=0; i<nums1.length; i++) {
+            Integer result = map.get(nums1[i]);
+            if(result != null && result >= 1) {
+                list.add(nums1[i]);
+                map.put(nums1[i], --result);
+            }
+            
+        }
+        int[] answer = new int[list.size()];
+        int index = 0;
+        for(Integer i : list) {
+            answer[index++] = i;
+        }
+        return answer;
+        
+    }
+}
